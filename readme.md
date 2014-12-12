@@ -100,7 +100,7 @@ The following lines might be of interest to you, if you want to customize the ma
 
 `<title>Our website is currently undergoing maintenance</title>` The default maintenance page title.
 
-`<h1>Our website is currently undergoing maintenance.</h1>` Between the body tags, the message that all viewers will see is set with <h1> tags.
+`<h1>Our website is currently undergoing maintenance.</h1>` Between the body tags, the message that all viewers will see is set with h1 tags.
 
 ### maintenance.css file in detail
 
@@ -108,7 +108,7 @@ The maintenance.css file provides styles for the maintenance.html file. The css 
 
 1. Browser reset style rules (written by Eric Meyer) to eliminate any conflicting browser styles. (I suggest keeping this code intact)
 
-2. Maintenance mode styles section (written by myself) provides styling for the background and the <h1> tag.
+2. Maintenance mode styles section (written by myself) provides styling for the background and the h1 tag.
 
 *Note: Eric Meyer's Reset Styles section has been omitted in the code example below*
 
@@ -131,7 +131,7 @@ The following lines might be of interest to you, if you want to customize the ma
 
 `body { background-color: #ff5800; }` This style rule defines the background color for the maintenance.html page. By default it is set to a bright shade of orange using a hexadecimal color.
 
-h1 tag rules will be explained separately for better clarity.
+*Note:* h1 tag rules will be explained separately for better clarity.
 
 `text-align: center;` This style centers the text on the screen regardless of screen size.
 
