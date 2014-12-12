@@ -1,0 +1,11 @@
+## Website Maintenance Mode (Uncomment all lines from <IfModule mod_rewrite.c> through (and including) </IfModule> to activate. Re-comment those lines with a # to turn off maintenance mode)
+## NOTE: You must update REMOTE_ADDR with your current IP address to view changes and preform testing.
+#####################################################################################################################################################
+
+#<IfModule mod_rewrite.c>
+ #RewriteEngine on 
+ #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$
+ #RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
+ #RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
+ #RewriteRule .* /maintenance.html [R=302,L]
+#</IfModule>
