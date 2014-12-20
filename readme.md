@@ -144,3 +144,7 @@ The following lines might be of interest to you, if you want to customize the ma
 `font-family: arial, sans-serif;` The heading typeface is set to display in arial first and then sans-serif if the viewer doesn't have arial installed on their computer.
 
 `font-size: 3em;` The size of the typeface is set to 3em.
+
+## License
+
+This software is licensed under the public domain, see the license.md file for more information.
