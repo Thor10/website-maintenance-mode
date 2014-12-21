@@ -11,13 +11,13 @@ To use these scripts you will need an Apache based web server, FTP access to the
 
 ## Quick Setup and Start
 
-Setting up the Maintenance Mode is fairly quick, simple and straight forward. If you're not too familiar with working with .htaccess files, this quick start guide should be enough to get you started fairly quickly. 
+Setting up the Maintenance Mode is fairly quick, simple and straight forward. If you're not too familiar with working with .htaccess files, this quick start guide should be enough to get you started fairly quickly.
 
 1. Upload the files (Psst...Don't worry the .htaccess file is already commented out (turned off) so you don't throw your site into maintenance mode as soon as the file is uploaded to the server.
 
 	1. **If you don't have an .htaccess file for your site**, upload all the files (.htaccess, maintenance.html, and maintenance.css to the root directory of your website.
 
-	2. **If you already do have an .htacess file for your site** upload the maintenance.html and maintenance.css files to the root of your website and copy n' paste the Website Maintenance Mode script into your current .htaccess file. 
+	2. **If you already do have an .htacess file for your site** upload the maintenance.html and maintenance.css files to the root of your website and copy n' paste the Website Maintenance Mode script into your current .htaccess file.
 
 2. Setup an IP Address exception so while the site is in maintenance mode you'll still be able to see and test any changes you make to the site. Open the .htaccess file, go the line **#RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$** and change the default IP address **255.255.255.255** to your IP address.
 
@@ -29,7 +29,7 @@ Setting up the Maintenance Mode is fairly quick, simple and straight forward. If
 
 3. To put the website into maintenance mode and redirect all incoming visitors to the maintenance notice, just **uncomment** the lines in the .htaccess file starting with **<IfModule mod_rewrite.c>** through (and including) **</IfModule>** using your favorite text editor on the server and save the file to make those changes.
 
-*Note:* If you have SSH access and text editor installed on the server (Nano, Vim, etc.) you can edit the .htaccess file directly on the server instead of having to edit the file locally, save it, and upload it every time you need to take the website in and out of maintenance mode. 
+*Note:* If you have SSH access and text editor installed on the server (Nano, Vim, etc.) you can edit the .htaccess file directly on the server instead of having to edit the file locally, save it, and upload it every time you need to take the website in and out of maintenance mode.
 
 4. When you're ready to take the website out of maintenance mode, simply go back and **re-comment** the lines **<IfModule mod_rewrite.c>** through (and including) **</IfModule>** and save the file to make those changes.
 
@@ -37,11 +37,13 @@ Setting up the Maintenance Mode is fairly quick, simple and straight forward. If
 
 The maintenance consists of the following files:
 
-.htaccess - The main script for redirecting the website viewers to the maintenance page. By default all lines in the script are commented out (turned off) in order to prevent the htaccess file from putting the website into maintenance mode right after upload.
+**.htaccess** - The main script for redirecting the website viewers to the maintenance page. By default all lines in the script are commented out (turned off) in order to prevent the htaccess file from putting the website into maintenance mode right after upload.
 
-maintenance.html - An extremely simple mobile friendly HTML5 based document that states "Our website is currently undergoing maintenance."
+**maintenance.html** - An extremely simple mobile friendly HTML5 based document that states "Our website is currently undergoing maintenance."
 
-maintenance.css - A simple CSS file which controls the look of the maintenance.html page. resets all browser styles, provides an orange background color for the page, centers the message, sets the font family to sans-serif,.
+**maintenance.css** - A simple CSS file which controls the look of the maintenance.html page. Styles include a browser styles reset, an orange background color for the page, centered message, sans-serif font family, and media break points to provide responsive styles for the h1 tag.
+
+**maintenance.min.css** - A minified (compressed) version of the maintenance.css file for production use. Any changes you want to make to the CSS would be made in the maintenance.css file. Once the desired changes are made, re-compress the maintenance.css file to update the minified file.
 
 ### .htaccess file in detail
 
@@ -53,7 +55,7 @@ When you first view the .htaccess file, every line in the file will be commented
 ############################################################################################################################################
 
 #<IfModule mod_rewrite.c>
- #RewriteEngine on 
+ #RewriteEngine on
  #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$
  #RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
  #RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
