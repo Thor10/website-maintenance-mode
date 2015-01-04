@@ -19,13 +19,17 @@ Setting up the Maintenance Mode is fairly quick, simple and straight forward. If
 
 	2. **If you already do have an .htacess file for your site** upload the maintenance.html and maintenance.css files to the root of your website and copy n' paste the Website Maintenance Mode script into your current .htaccess file.
 
-2. Setup an IP Address exception so while the site is in maintenance mode you'll still be able to see and test any changes you make to the site. Open the .htaccess file, go the line **#RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$** and change the default IP address **255.255.255.255** to your IP address.
+2. Setup an IP Address exception so while the site is in maintenance mode you'll still be able to see and test any changes you make to the site. Open the .htaccess file, go the lines that say **#RewriteCond %{REMOTE_ADDR}**. Depending on whether you have a IPv4 or and IPv6 address, you'll only un-comment one of the lines.
 
-	1. *Note:* If you're connected to a router, the IP address will be the one assigned to the router, not the internal IP that your router assigns to your computer. If you don't know what your IP address is, do a quick Internet search for "What's my IP address?" with your favorite search engine and the search results should provide you with your current IP address either within the search results or give you a list of sites that will display it for you.
+	1. **For IPv4 addresses:** Change the default IP address **255.255.255.255** to your IP address. Example: **!^123\.456\.789\.123$**
 
-	2. Also, keep in mind that any computers connected to that very same router will also have the same outside IP address and therefore they will not be re-routed to the maintenance page. This may or may not be a concern for you depending on your situation. To better clarify, if you're connected to a wifi hotspot at a coffee shop or any place that offers wifi, any computers that are connected to that same hot spot will have the same IP address and thus will not be redirected to the web site's maintenance page.
+	2. **For IPv6 addresses:** Change the defalt IP address **0000:0000:0000:0000:0000:0000:0000:0000** to your IP address. IPv6 addresses only need the IP address.
 
-	3. Lastly keep in mind that your IP address may change from time to time even if you work from the same location with the same internet connection. Double check your IP address before putting your website into maintenance mode so you don't get redirected to the maintenance page.
+	3. **Note about routers** If you're connected to a router, the IP address will be the one assigned to the router, not the internal IP that your router assigns to your computer. If you don't know what your IP address is, do a quick Internet search for "What's my IP address?" with your favorite search engine and the search results should provide you with your current IP address either within the search results or give you a list of sites that will display it for you.
+
+Also, keep in mind that any computers connected to that very same router will also have the same outside IP address and therefore they will not be re-routed to the maintenance page. This may or may not be a concern for you depending on your situation. To better clarify, if you're connected to a wifi hotspot at a coffee shop or any place that offers wifi, any computers that are connected to that same hot spot will have the same IP address and thus will not be redirected to the web site's maintenance page.
+
+Lastly keep in mind that your IP address may change from time to time even if you work from the same location with the same internet connection. Double check your IP address before putting your website into maintenance mode so you don't get redirected to the maintenance page.
 
 3. To put the website into maintenance mode and redirect all incoming visitors to the maintenance notice, just **uncomment** the lines in the .htaccess file starting with **<IfModule mod_rewrite.c>** through (and including) **</IfModule>** using your favorite text editor on the server and save the file to make those changes.
 
@@ -52,11 +56,12 @@ When you first view the .htaccess file, every line in the file will be commented
 ```
 ## Website Maintenance Mode (Uncomment all lines from <IfModule mod_rewrite.c> through (and including) </IfModule> to activate. Re-comment those lines with a # to turn off maintenance mode)
 ## NOTE: You must update REMOTE_ADDR with your current IP address to view changes and preform testing.
-############################################################################################################################################
+################################################################################################################################################################
 
 #<IfModule mod_rewrite.c>
  #RewriteEngine on
- #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$
+ #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$ #IPv4
+ #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000 #IPv6
  #RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
  #RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
  #RewriteRule .* /maintenance.html [R=302,L]
@@ -66,7 +71,9 @@ When you first view the .htaccess file, every line in the file will be commented
 
 The following lines might be of interest to you, if you wish to customize the .htaccess file. *Note: Making changes to the .htaccess file can cause your site to become un-viewable if you make a syntax error in the file.*
 
-`RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$` This line sets the IP address exception for your computer.
+`RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$ #IPv4` This line sets the IPv4 address exception for your computer.
+
+`RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000 #IPv6` This line sets the IPv6 address exception for your computer.
 
 `RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]` This line sets the condition for maintenance.html
 
