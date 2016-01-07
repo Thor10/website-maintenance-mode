@@ -1,12 +1,19 @@
-# Website Maintenance Mode (Uncomment all lines from <IfModule mod_rewrite.c> through (and including) </IfModule> to activate. Re-comment those lines with a # to turn off maintenance mode)
+# Website Maintenance Mode for Apache Servers
+# Uncomment all lines from <IfModule mod_rewrite.c> and including </IfModule> to activate.
+# Re-comment those lines with a # to turn off maintenance mode)
 
-# NOTE: You must update REMOTE_ADDR with your current IP address to view changes and preform testing. Depending on whether you have IPv4 or IPv6 you'll only un-comment and change one of the lines. IPv4 will have !^ infront the IP address followed by back slashes. IPv6 only requires the IP address itself.
-################################################################################################################################################################
+# NOTE: You must update REMOTE_ADDR with your current IP address to view changes and preform testing.
+# Depending on whether you have IPv4 or IPv6 you will only need to un-comment and change one of the lines.
+# IPv4 will have !^ infront the IP address followed by back slashes.
+# IPv6 only requires the IP address itself.
+
 
 #<IfModule mod_rewrite.c>
  #RewriteEngine on
- #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$ #IPv4
- #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000 #IPv6
+ #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
+ #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$
+ #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
+ #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000
  #RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
  #RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
  #RewriteRule .* /maintenance.html [R=302,L]
