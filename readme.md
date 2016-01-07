@@ -54,26 +54,35 @@ The maintenance consists of the following files:
 When you first view the .htaccess file, every line in the file will be commented out (maintenance mode will be turned off) as you can see in the following below.
 
 ```
-## Website Maintenance Mode (Uncomment all lines from <IfModule mod_rewrite.c> through (and including) </IfModule> to activate. Re-comment those lines with a # to turn off maintenance mode)
-## NOTE: You must update REMOTE_ADDR with your current IP address to view changes and preform testing.
-################################################################################################################################################################
+# Website Maintenance Mode for Apache Servers
+# Uncomment all lines from <IfModule mod_rewrite.c> and including </IfModule> to activate.
+# Re-comment those lines with a # to turn off maintenance mode)
+
+# NOTE: You must update REMOTE_ADDR with your current IP address to view changes and preform testing.
+# Depending on whether you have IPv4 or IPv6 you will only need to un-comment and change one of the lines.
+# IPv4 will have !^ infront the IP address followed by back slashes.
+# IPv6 only requires the IP address itself.
+
 
 #<IfModule mod_rewrite.c>
  #RewriteEngine on
- #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$ #IPv4
- #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000 #IPv6
+ #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
+ #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$
+ #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
+ #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000
  #RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
  #RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
  #RewriteRule .* /maintenance.html [R=302,L]
 #</IfModule>
+
 ```
 #### Breakdown of some of .htaccess script lines
 
 The following lines might be of interest to you, if you wish to customize the .htaccess file. *Note: Making changes to the .htaccess file can cause your site to become un-viewable if you make a syntax error in the file.*
 
-`RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$ #IPv4` This line sets the IPv4 address exception for your computer.
+`RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$` This line sets the IPv4 address exception for your computer.
 
-`RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000 #IPv6` This line sets the IPv6 address exception for your computer.
+`RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000` This line sets the IPv6 address exception for your computer.
 
 `RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]` This line sets the condition for maintenance.html
 
