@@ -13,7 +13,7 @@
  #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
  #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$
  #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
- #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000
+ #RewriteCond %{REMOTE_ADDR} !^0000:0000:0000:0000:0000:0000:0000:0000
  #RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
  #RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
  #RewriteRule .* /maintenance.html [R=302,L]
