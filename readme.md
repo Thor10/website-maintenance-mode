@@ -1,17 +1,125 @@
-# Website Maintenance Mode
+# Website Maintenance Mode for Apache Servers
 
+Website Maintenance Mode allows you to easily and quickly setup a 302 redirect for all visitors to a maintenance page
+ on your website and it also allows you to view your site normally by excluding your IP address so you can review and
+  test your site before switching it back to normal.
 
-The Website Maintenance Mode allows you to easily and quickly put your website into maintenance mode via an Apache htaccess script and temporarily 302 redirect all incoming visitors **accept for the computer you're working on by an IP address exception* to a custom maintenance page that states the website is down for maintenance work.
+## Requirements
 
-*Note:* The IP address exception allows only you to view, edit, and test any changes you make your website without being rerouted to the maintenance page. By having this exception you can ensure that everything on your live site is working correctly before returning your website to it's normal viewing mode.
+A web server running Apache ver.2.2 or greater, FTP access to the server, and a basic text editor. SSH access is highly 
+recommended, but not required if you are only going to redirect the website via an .htaccess file and edit the file 
+on your local machine.
 
-### Requirements for using the Maintenance Mode
+## Instructions for users who have root/sudo access to their server. 
 
-To use these scripts you will need an Apache based web server, FTP access to the server, and a basic text editor thats installed on the computer you're using. SSH access is helpful, but not required.
+**If you have root/sudo access to your server:** You only need to upload maintenance.html and maintenance.css to the 
+server. Simply save these files in the website's root directory. The .htaccess script will simply be copied and 
+pasted to the Virtual Host file on the server.
 
-## Quick Setup and Start
+**If you don't have root/sudo access to your server:** You will only need to upload maintenance.html and maintenance
+.css to the server. Simply save these files in the website's root directory. The .htaccess script will edited on your
+ local machine and then uploaded to the root directory of your website.
 
-Setting up the Maintenance Mode is fairly quick, simple and straight forward. If you're not too familiar with working with .htaccess files, this quick start guide should be enough to get you started fairly quickly.
+### Editing the Virtual Host file
+
+1. Navigate to the Apache configuration file for your website(s). It should be located in the following path directory 
+from the root directory **/etc/apache2/sites-available**
+
+2. Type **ls** to show the virtual host conf file for your site. *Note: It should resemble something like 
+yourwebsitename.conf If you run multiple sites on your server, choose the one you want to setup maintenance mode for.*
+
+3. Open your website's virtual host conf file using your preferred text editor. Type **sudo vim yourwebsitename.conf** 
+or **sudo nano yourwebsitename.conf**
+
+Your virtual host file will look similar to the following example below.
+
+```
+<VirtualHost *:80>
+   # Admin email, Server Name (domain name), and any aliases
+   ServerAdmin email@example.com
+   ServerName  www.examplesite.com
+   ServerAlias examplesite.com
+  
+   # Index file and Document Root (where the public files are located)
+   DirectoryIndex index.html index.php
+   DocumentRoot /var/www/examplesite.com/public_html
+   # Log file locations
+   LogLevel warn
+   ErrorLog  /var/www/examplesite.com/log/error.log
+   CustomLog /var/www/examplesite.com/log/access.log combined
+</VirtualHost>
+
+```
+
+4. From the .htaccess file copy everything and paste it the virtual host file before the </VirtualHost> closing tag.
+Your file should now look something like the example below.
+
+```
+<VirtualHost *:80>
+   # Admin email, Server Name (domain name), and any aliases
+   ServerAdmin email@example.com
+   ServerName  www.examplesite.com
+   ServerAlias examplesite.com
+  
+   # Index file and Document Root (where the public files are located)
+   DirectoryIndex index.html index.php
+   DocumentRoot /var/www/examplesite.com/public_html
+   # Log file locations
+   LogLevel warn
+   ErrorLog  /var/www/examplesite.com/log/error.log
+   CustomLog /var/www/examplesite.com/log/access.log combined
+   
+   # Website Maintenance Mode for Apache Servers
+   # Uncomment all lines from <IfModule mod_rewrite.c> and including </IfModule> to activate.
+   # Re-comment those lines with a # to turn off maintenance mode)
+   
+   # NOTE: You must update REMOTE_ADDR with your current IP address to view changes and preform testing.
+   # Depending on whether you have IPv4 or IPv6 you will only need to un-comment and change one of the lines.
+   # IPv4 will have !^ infront the IP address followed by back slashes.
+   # IPv6 only requires the IP address itself.
+   
+   
+   #<IfModule mod_rewrite.c>
+    #RewriteEngine on
+    #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
+    #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$
+    #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
+    #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000
+    #RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
+    #RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
+    #RewriteRule .* /maintenance.html [R=302,L]
+   #</IfModule>
+</VirtualHost>
+
+```
+
+5. By default, the script is commented out so it won't unintentionally activate. The # (comments) between and 
+including `<IfModule mod_rewrite.c> and </IfModule> ` and only one of the two RewriteCond %{REMOTE_ADDR} lines. Which
+ one depends on if you have a IPv4 or IPv6 address.
+
+6. Change the default IP in RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$ or RewriteCond %{REMOTE_ADDR} 
+0000:0000:0000:0000:0000:0000:0000:0000 to your own IP address.
+
+The script should look something like the following below.
+
+```
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
+    RewriteCond %{REMOTE_ADDR} !^123\.456.789\.12$
+    #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
+   #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000
+    RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
+    RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
+    RewriteRule .* /maintenance.html [R=302,L]
+   </IfModule>
+
+```
+
+7. Finally restart apache by using the following command **sudo service apache2 restart** Check to ensure that no 
+error messages appear from apache. If so, check the apache logs to find out where the problem may lie. 
+
+### Instructions for editing an .htaccess file 
 
 1. Upload the files (Psst...Don't worry the .htaccess file is already commented out (turned off) so you don't throw your site into maintenance mode as soon as the file is uploaded to the server.
 
