@@ -82,7 +82,7 @@ Your file should now look something like the example below.
     #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
     #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$
     #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
-    #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000
+    #RewriteCond %{REMOTE_ADDR} !^0000:0000:0000:0000:0000:0000:0000:0000
     #RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
     #RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
     #RewriteRule .* /maintenance.html [R=302,L]
@@ -106,7 +106,7 @@ The script should look something like the following below.
     #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
     RewriteCond %{REMOTE_ADDR} !^123\.456.789\.12$
     #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
-   #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000
+   #RewriteCond %{REMOTE_ADDR} !^0000:0000:0000:0000:0000:0000:0000:0000
     RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
     RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
     RewriteRule .* /maintenance.html [R=302,L]
@@ -125,7 +125,7 @@ The script should look something like the following below.
     #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
    #RewriteCond %{REMOTE_ADDR} !^123\.456.789\.12$
     #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
-    RewriteCond %{REMOTE_ADDR} 2301:244:4711:b:ae22:bff:fe8c:dcd8
+    RewriteCond %{REMOTE_ADDR} !^2301:244:4711:b:ae22:bff:fe8c:dcd8
     RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
     RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
     RewriteRule .* /maintenance.html [R=302,L]
@@ -164,7 +164,7 @@ error messages appear from apache. If so, check the apache logs to find out wher
  #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
  #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$
  #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
- #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000
+ #RewriteCond %{REMOTE_ADDR} !^0000:0000:0000:0000:0000:0000:0000:0000
  #RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
  #RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
  #RewriteRule .* /maintenance.html [R=302,L]
@@ -187,7 +187,7 @@ The script should look something like the following below.
     #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
     RewriteCond %{REMOTE_ADDR} !^123\.456.789\.12$
     #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
-   #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000
+   #RewriteCond %{REMOTE_ADDR} !^0000:0000:0000:0000:0000:0000:0000:0000
     RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
     RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
     RewriteRule .* /maintenance.html [R=302,L]
@@ -195,7 +195,8 @@ The script should look something like the following below.
 
 ```
 
-5. If you have an IPv6 address, uncomment and change RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000 
+5. If you have an IPv6 address, uncomment and change RewriteCond %{REMOTE_ADDR} 
+!^0000:0000:0000:0000:0000:0000:0000:0000 
    to your own IP address.
 
 The script should look something like the following below.
@@ -206,7 +207,7 @@ The script should look something like the following below.
     #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
    #RewriteCond %{REMOTE_ADDR} !^123\.456.789\.12$
     #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
-    RewriteCond %{REMOTE_ADDR} 2301:244:4711:b:ae22:bff:fe8c:dcd8
+    RewriteCond %{REMOTE_ADDR} !^2301:244:4711:b:ae22:bff:fe8c:dcd8
     RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
     RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
     RewriteRule .* /maintenance.html [R=302,L]
@@ -247,7 +248,7 @@ When you first view the .htaccess file, every line in the file will be commented
  #### Note: If your computer uses an IPv4 address. Only uncomment the line below. ####
  #RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$
  #### Note: If your computer uses an IPv6 address. Only uncomment the line below. ####
- #RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000
+ #RewriteCond %{REMOTE_ADDR} !^0000:0000:0000:0000:0000:0000:0000:0000
  #RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]
  #RewriteCond %{REQUEST_URI} !\.(jpe?g?|png|gif|svg|css|js) [NC]
  #RewriteRule .* /maintenance.html [R=302,L]
@@ -260,7 +261,8 @@ The following lines might be of interest to you, if you wish to customize the .h
 
 `RewriteCond %{REMOTE_ADDR} !^255\.255\.255\.255$` This line sets the IPv4 address exception for your computer.
 
-`RewriteCond %{REMOTE_ADDR} 0000:0000:0000:0000:0000:0000:0000:0000` This line sets the IPv6 address exception for your computer.
+`RewriteCond %{REMOTE_ADDR} !^0000:0000:0000:0000:0000:0000:0000:0000` This line sets the IPv6 address exception for 
+your computer.
 
 `RewriteCond %{REQUEST_URI} !/maintenance.html$ [NC]` This line sets the condition for maintenance.html
 
