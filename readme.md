@@ -228,7 +228,7 @@ in maintenance mode, you can setup additional exceptions:
 
 ### Included Files
 
-The maintenance consists of the following files:
+Website Maintenance Mode consists of the following files:
 
 **.htaccess** - The main script for redirecting the website viewers to the maintenance page.
 
@@ -309,6 +309,7 @@ The following lines might be of interest to you, if you want to customize the ma
 `<title>Our website is currently undergoing maintenance</title>` The default maintenance page title.
 
 `<h1>Our website is currently undergoing maintenance.</h1>` Between the body tags, the message that all viewers will see is set with h1 tags.
+
 
 ### maintenance.css file in detail
 
