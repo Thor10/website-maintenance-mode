@@ -216,6 +216,16 @@ The script should look something like the following below.
 ```
 6. Save the file and upload it to the root directory of your website.
 
+## Setting IP address exceptions for multiple computers.
+
+If you require an IP exception across multiple computers or have more than one person working on the site while 
+in maintenance mode, you can setup additional exceptions:
+ 
+ 1. Check the other computer external IP address and make note of them.
+ 
+ 2. For each machine that will need an exception, add additional `RewriteCond %{REMOTE_ADDR} !^` with their IP 
+ address on new, separate lines.
+
 ### Included Files
 
 The maintenance consists of the following files:
